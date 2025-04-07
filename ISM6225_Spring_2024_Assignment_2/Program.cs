@@ -62,111 +62,184 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new List<int>(); // Placeholder
+                HashSet<int> set = new HashSet<int>(nums);
+                List<int> result = new List<int>();
+
+                for (int i = 1; i <= nums.Length; i++)
+                {
+                    if (!set.Contains(i))
+                        result.Add(i);
+                }
+                return result;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: Empty array => return full list from 1 to n (which is 0 in this case, so returns empty list)
+        // Edge Case: All numbers present => return empty list
 
         // Question 2: Sort Array by Parity
         public static int[] SortArrayByParity(int[] nums)
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                int[] result = new int[nums.Length];
+                int start = 0, end = nums.Length - 1;
+
+                foreach (int num in nums)
+                {
+                    if (num % 2 == 0)
+                        result[start++] = num;
+                    else
+                        result[end--] = num;
+                }
+                return result;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: All even or all odd => maintains order of even-first or odd-last
+        // Edge Case: Empty array => returns empty
 
         // Question 3: Two Sum
         public static int[] TwoSum(int[] nums, int target)
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                Dictionary<int, int> map = new Dictionary<int, int>();
+
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    int complement = target - nums[i];
+                    if (map.ContainsKey(complement))
+                        return new int[] { map[complement], i };
+                    if (!map.ContainsKey(nums[i]))
+                        map[nums[i]] = i;
+                }
+                return new int[0];
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: No solution => return empty array
+        // Edge Case: Duplicates allowed if they lead to the solution
 
         // Question 4: Find Maximum Product of Three Numbers
         public static int MaximumProduct(int[] nums)
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                Array.Sort(nums);
+                int n = nums.Length;
+                return Math.Max(nums[0] * nums[1] * nums[n - 1],
+                                nums[n - 1] * nums[n - 2] * nums[n - 3]);
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: Negative numbers in array => product may include them
+        // Edge Case: Less than 3 elements => invalid case, not handled here
 
         // Question 5: Decimal to Binary Conversion
         public static string DecimalToBinary(int decimalNumber)
         {
             try
             {
-                // Write your code here
-                return "101010"; // Placeholder
+                if (decimalNumber == 0) return "0";
+                string binary = "";
+                while (decimalNumber > 0)
+                {
+                    binary = (decimalNumber % 2) + binary;
+                    decimalNumber /= 2;
+                }
+                return binary;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: Input 0 => output should be "0"
+        // Edge Case: Negative input => not handled here
 
         // Question 6: Find Minimum in Rotated Sorted Array
         public static int FindMin(int[] nums)
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                int left = 0, right = nums.Length - 1;
+
+                while (left < right)
+                {
+                    int mid = left + (right - left) / 2;
+                    if (nums[mid] > nums[right])
+                        left = mid + 1;
+                    else
+                        right = mid;
+                }
+                return nums[left];
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: Not rotated => first element is min
+        // Edge Case: One element => that’s the min
 
         // Question 7: Palindrome Number
         public static bool IsPalindrome(int x)
         {
             try
             {
-                // Write your code here
-                return false; // Placeholder
+                if (x < 0) return false;
+                string s = x.ToString();
+                int left = 0, right = s.Length - 1;
+
+                while (left < right)
+                {
+                    if (s[left++] != s[right--])
+                        return false;
+                }
+                return true;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: Negative number => false
+        // Edge Case: Single digit => true
 
         // Question 8: Fibonacci Number
         public static int Fibonacci(int n)
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                if (n <= 1) return n;
+                int a = 0, b = 1;
+
+                for (int i = 2; i <= n; i++)
+                {
+                    int temp = a + b;
+                    a = b;
+                    b = temp;
+                }
+                return b;
             }
             catch (Exception)
             {
                 throw;
             }
         }
+        // Edge Case: n = 0 or 1 => return directly
     }
 }
